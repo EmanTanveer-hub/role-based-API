@@ -11,6 +11,7 @@ router.post("/register", registerUser);
 router.post("/login", loginUser);
 
 //--protected route to check wreather token is valid or not or role of the user its admin or user
+
 router.get("/manager", protect, authorized("admin", "manager"), (req, res) => {
   res.json({
     message: "Welcome admin/manager",

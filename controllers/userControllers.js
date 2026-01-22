@@ -1,6 +1,6 @@
 const User = require("../models/User");
 
-//--get all users
+//----get all users
 exports.allUsers = async (req, res) => {
   try {
     const users = await User.find().select("-password");
@@ -10,7 +10,7 @@ exports.allUsers = async (req, res) => {
   }
 };
 
-//----delete user
+//-----delete user
 exports.deleteUser = async (req, res) => {
   try {
     const user = await User.findByIdAndDelete(req.params.id);
@@ -34,4 +34,15 @@ exports.blockUser = async (req, res) => {
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
+};
+
+//----change-roles
+exports.changeRole = async(req,res) => {
+    const {role} = req.body;
+    await User.findByIdAndUpdate(req.params.id,{role});
+    res.json({message : "role is changed succesfully"});
+};
+//----get-profile
+exports.getProfile = async(req,res) => {
+   res.json(req.user);
 };
